@@ -28,6 +28,15 @@ public class UsersService extends DatabaseService {
         );
     }
 
+    public Optional<String> getUserPassword (String userName) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT PasswordPlainText FROM Users WHERE UserName = :UserName")
+                    .bind("UserName", userName)
+                    .mapTo(String.class)
+                    .findFirst()
+        );
+    }
+
     public void addUser(User user) {
         jdbi.useHandle(handle ->
                 handle.createUpdate("INSERT INTO users (FullName, UserName, PasswordPlainText) VALUES (:FullName, :UserName, :PasswordPlainText)")

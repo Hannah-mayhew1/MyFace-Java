@@ -1,6 +1,7 @@
 package softwire.training.myface.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class NewUserController {
 
     private UsersService usersService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public NewUserController(UsersService usersService) {
+    public NewUserController(UsersService usersService, PasswordEncoder passwordEncoder) {
         this.usersService = usersService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -36,10 +39,11 @@ public class NewUserController {
         Optional<User> existingUser = usersService.getUserWithUserName(user.getUserName());
 
         if(!existingUser.isPresent()) {
+            user.setPasswordPlainText(passwordEncoder.encode(user.getPasswordPlainText()));
             usersService.addUser(user);
-            return new RedirectView("/users");
+            return new RedirectView("/");
         } else {
-            return new RedirectView("/users");
+            return new RedirectView("/");
         }
     }
 
