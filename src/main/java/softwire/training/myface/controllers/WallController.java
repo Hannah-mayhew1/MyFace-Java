@@ -76,4 +76,34 @@ public class WallController {
         }
     }
 
+    @RequestMapping(value = "/{wallOwnerUsername}/wave", method = RequestMethod.POST)
+    public RedirectView waveAtUser(
+            @PathVariable("wallOwnerUsername") String wallOwnerUsername,
+            Principal principal
+    ) {
+        String senderUsername = principal.getName();
+        postsService.createPost(senderUsername, wallOwnerUsername, "\uD83D\uDC4B");
+        return new RedirectView("/wall/" + wallOwnerUsername);
+    }
+
+    @RequestMapping(value = "/{wallOwnerUsername}/frown", method = RequestMethod.POST)
+    public RedirectView frownAtUser(
+            @PathVariable("wallOwnerUsername") String wallOwnerUsername,
+            Principal principal
+    ) {
+        String senderUsername = principal.getName();
+        postsService.createPost(senderUsername, wallOwnerUsername, "☹️");
+        return new RedirectView("/wall/" + wallOwnerUsername);
+
+    }@RequestMapping(value = "/{wallOwnerUsername}/like", method = RequestMethod.POST)
+    public RedirectView sendLikeToUser(
+            @PathVariable("wallOwnerUsername") String wallOwnerUsername,
+            Principal principal
+    ) {
+        String senderUsername = principal.getName();
+        postsService.createPost(senderUsername, wallOwnerUsername, "\uD83D\uDC4D");
+        return new RedirectView("/wall/" + wallOwnerUsername);
+    }
+
+
 }

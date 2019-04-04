@@ -2,24 +2,53 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" type="text/css" href="/styles/myface.css" />
-        <title>Home Page :: My🙂Face</title>
+        <link rel="stylesheet" type="text/css" href="/styles/signup.css" />
+        <title>Home Page :: Mingle</title>
     </head>
 
     <body>
         <nav>
             <div class="nav-inner">
-                <a href="/" class="brand">My🙂Face</a>
+                <a href="/" class="brand">Mingle</a>
+            </div>
+            <div>
+                <a href="/users" class="login-button">Login</a>
             </div>
         </nav>
+        <div class="index-container">
+            <div class="limited-width-container">
 
-        <div class="limited-width-container">
-            <h1>Welcome to My🙂Face</h1>
-            <a href="/users" class="button">
-                Login
-            </a>
-            <a href="/signup" class="button">
-                Sign Up
-            </a>
+                <img id="lets-mingle" src="https://3.bp.blogspot.com/-iO1kCG5idJ8/V23nac_mfJI/AAAAAAAALfQ/cWSsKniR10gfvM0c2R_FQV7hl06KQftfQCKgB/s1600/letsmingle.png" alt="Let's Mingle"/>
+
+                <h1>Mingle allows you to connect with users on a global scale. Login or Sign Up today to get mingling!</h1>
+
+                <img id="network" src="https://www.alliance-scotland.org.uk/wp-content/uploads/2017/11/ALLIANCE-general-people-networking-image-2017-01-1.jpg" alt="networking"/>
+
+
+            </div>
+            <div class="sign-up-form">
+                <h1 id="create-account">Create an Account: </h1>
+
+                <form method="post" action="/signup">
+
+                    <div class="form-row">
+                        <label class="form-title" for="fullname_box">Full Name:</label>
+                        <input type="text" name="fullName" id="fullname_box"/>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="form-title" for="username_box">Username:</label>
+                        <input type="text" name="userName" id="username_box"/>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="form-title" for="password_box">Password:</label>
+                        <input type="password" name="passwordPlainText" id="password_box"/>
+                    </div>
+
+                    <input type="submit" value="Sign up!" class="button"/>
+                </form>
+            </div>
         </div>
     </body>
 </html>
