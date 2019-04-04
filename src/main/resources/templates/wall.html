@@ -33,6 +33,9 @@
                     says:
                 </div>
                 <div th:text="${post.content}"></div>
+                <form method="post" th:if="${post.sender.equals(model.loggedInUsername) || post.recipient.equals(model.loggedInUsername)}" th:action="${'/wall/' + model.wallOwnerUsername + '/delete-post/' + post.id}">
+                    <input type="submit" value="Delete post"/>
+                </form>
             </div>
 
 

@@ -1,6 +1,7 @@
 package softwire.training.myface.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import softwire.training.myface.models.dbmodels.Post;
 import softwire.training.myface.models.viewmodels.WallViewModel;
 import softwire.training.myface.services.PostsService;
 import softwire.training.myface.services.UsersService;
@@ -53,6 +55,25 @@ public class WallController {
         postsService.createPost(senderUsername, wallOwnerUsername, content);
 
         return new RedirectView("/wall/" + wallOwnerUsername);
+    }
+
+    @RequestMapping(value = "/{wallOwnerUsername}/delete-post/{id}", method = RequestMethod.POST)
+    public RedirectView deletePostOnWall(
+            @PathVariable("wallOwnerUsername") String wallOwnerUsername,
+            @PathVariable("id") Integer id,
+            Principal principal
+    ) {
+        Post currentPost = postsService.getSinglePostOnWall(id);
+        String sender = currentPost.getSender();
+        String recipient = currentPost.getRecipient();
+        String currentUser = principal.getName();
+
+        if (currentUser.equals(sender) || currentUser.equals(recipient)) {
+            postsService.deletePost(id);
+            return new RedirectView("/wall/" + wallOwnerUsername);
+        } else {
+            throw new AccessDeniedException("Only the sender or recipient can delete posts!");
+        }
     }
 
 }
