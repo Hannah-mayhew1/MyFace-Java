@@ -1,10 +1,10 @@
 .user-link {
-    font-size: 20px;
+    font-size: 1.5vw;
 }
 
 .user-link a {
     font-weight: bold;
-    color: #4682b4;
+    color: black;
 }
 .user-link a:hover {
     color: #386699;
@@ -14,7 +14,7 @@
     background-image: url("../images/19-512 copy.png");
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: 5%;
+    background-position: 8px 0;
     font-size: 2vw;
     padding: 4px 28px 4px 40px;
     border: 1px solid #ddd;

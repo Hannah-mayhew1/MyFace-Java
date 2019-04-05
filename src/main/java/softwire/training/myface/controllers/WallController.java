@@ -29,6 +29,20 @@ public class WallController {
         this.usersService = usersService;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ModelAndView getWall(
+            Principal principal
+    ) {
+
+        WallViewModel wallViewModel = new WallViewModel();
+        wallViewModel.loggedInUsername = principal.getName();
+        wallViewModel.wallOwnerUsername = principal.getName();
+        wallViewModel.posts = postsService.getPostsOnWall(principal.getName());
+        wallViewModel.wallOwnerFullName = usersService.getUserWithUserName(principal.getName()).get().getFullName();
+
+        return new ModelAndView("wall", "model", wallViewModel);
+    }
+
     @RequestMapping(value = "/{wallOwnerUsername}", method = RequestMethod.GET)
     public ModelAndView getWall(
             @PathVariable("wallOwnerUsername") String wallOwnerUsername,
@@ -40,6 +54,7 @@ public class WallController {
         wallViewModel.wallOwnerUsername = wallOwnerUsername;
         wallViewModel.posts = postsService.getPostsOnWall(wallOwnerUsername);
         wallViewModel.wallOwnerFullName = usersService.getUserWithUserName(wallOwnerUsername).get().getFullName();
+        wallViewModel.allUsernames = usersService.guessAllUsernames();
 
         return new ModelAndView("wall", "model", wallViewModel);
     }

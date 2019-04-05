@@ -19,24 +19,33 @@
 
 
 input[type=text] {
-    width: 500px;
-    border: 1px solid steelblue;
+    border: 1px solid darkgrey;
     border-radius: 15px;
     padding: 5px 10px;
     outline: none;
+    font-size: 1.2vw;
+}
+
+#create-post, #create-status {
+    border: 1px solid darkgrey;
+    border-radius: 15px;
+    padding: 5px 10px;
+    outline: none;
+    font-size: 1.2vw;
+    width: 50vw;
 }
 
 input[type=submit] {
-    background-color: #4682b4;
+    background-color: #ff9999;
     padding: 8px 16px;
     margin-right: 20px;
     border-radius: 5px;
     color: white;
     border: none;
-    font-size: 16px;
+    font-size: 1.2vw;
 }
 input[type=submit]:hover {
-    background-color: #386699;
+    background-color: #ff4d4d;
 }
 
 #profile-picture {
@@ -44,4 +53,71 @@ input[type=submit]:hover {
     height: auto;
     display: flex;
     align-items: flex-start; !important;
+}
+
+#profile-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#post-on-wall {
+    font-size: 2vw;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 851px ) {
+    #post-on-wall {
+        font-size: 18px;
+    }
+}
+
+#profile-name {
+    font-size: 1.8vw;
+}
+
+#users {
+    background-color: #fff4f4;
+    color: black;
+    font-size: 1.5vw;
+    padding: 0 16px 0 48px;
+    text-align: right;
+}
+
+.users-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#reactions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#reactions-form {
+    width: 20vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#left-hand-pane {
+    width: 20vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#align-top-divs {
+    display: flex;
+    flex-direction: row;
 }

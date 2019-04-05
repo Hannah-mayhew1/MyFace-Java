@@ -10,5 +10,6 @@ public class WallViewModel {
     public String wallOwnerUsername;
     public String wallOwnerFullName;
     public List<Post> posts;
+    public List<String> allUsernames;
 
 }
