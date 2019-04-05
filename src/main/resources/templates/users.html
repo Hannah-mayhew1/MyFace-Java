@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="/styles/myface.css" />
         <link rel="stylesheet" type="text/css" href="/styles/users.css" />
         <title>Users :: Mingle</title>
+        <script src="/scripts/memberSearch.js"></script>
     </head>
 
     <body>
@@ -13,12 +14,13 @@
             <div class="nav-inner">
                 <a href="/" class="brand">Mingle</a>
 
-                <a href="/users" class="nav-link">Users</a>
+                <input type="text" id="search-members" onkeyup="searchMembers()"
+                       placeholder="Find your Friends..."/>
 
                 <div class="nav-align-right">
-                    <a th:href="${'/wall/' + model.loggedInUsername}"
-                       class="nav-link"
-                       th:text="${'🙂 ' + model.loggedInUsername}"></a>
+                    <a class="navbar-button" th:href="${'/wall/' + model.loggedInUsername}">
+                        <span th:text="${model.loggedInUsername}"></span>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -26,10 +28,11 @@
         <div class="limited-width-container">
             <h1>Say Hi to all the Mingle users!</h1>
 
-            <p th:each="username: ${model.allUsernames}" class="user-link">
-                🙂
-                <a th:text="${username}" th:href="${'/wall/' + username}"></a>
-            </p>
+            <div id="users">
+                <p th:each="username: ${model.allUsernames}" class="user-link">
+                    <a th:text="${username}" th:href="${'/wall/' + username}"></a>
+                </p>
+            </div>
         </div>
 
     </body>

@@ -9,3 +9,22 @@
 .user-link a:hover {
     color: #386699;
 }
+
+#search-members {
+    background-image: url("../images/19-512 copy.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 5%;
+    font-size: 2vw;
+    padding: 4px 28px 4px 40px;
+    border: 1px solid #ddd;
+    border-radius: 15px 15px 15px 15px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+@media screen and (min-width: 668px ) {
+    #search-members {
+        font-size: 14px;
+    }
+}

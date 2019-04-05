@@ -17,14 +17,17 @@
 
                 <div class="nav-align-right">
                     <a th:href="${'/wall/' + model.loggedInUsername}"
-                       class="nav-link"
-                       th:text="${'🙂 ' + model.loggedInUsername}"></a>
+                       class="navbar-button"
+                       th:text="${model.loggedInUsername}"></a>
                 </div>
             </div>
         </nav>
 
+        <img id="profile-picture" src="/images/personicon.png" alt="profile picture"/>
+
         <div class="limited-width-container">
-            <h1><span th:text="${model.wallOwnerFullName}"></span>'s wall</h1>
+
+            <h1><span th:text="${model.wallOwnerFullName}"></span></h1>
 
             <form method="post" th:action="${'/wall/' + model.wallOwnerUsername + '/wave'}">
                 <input type="submit" value="Wave!" />
