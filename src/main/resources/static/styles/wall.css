@@ -38,7 +38,6 @@ input[type=text] {
 input[type=submit] {
     background-color: #ff9999;
     padding: 8px 16px;
-    margin-right: 20px;
     border-radius: 5px;
     color: white;
     border: none;
@@ -60,6 +59,8 @@ input[type=submit]:hover {
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-right: 200px;
+    margin-top: 60px;
 }
 #post-on-wall {
     font-size: 2vw;
@@ -73,7 +74,7 @@ input[type=submit]:hover {
     }
 }
 
-#profile-name {
+#profile-name, #update-status {
     font-size: 1.8vw;
 }
 
@@ -120,4 +121,15 @@ input[type=submit]:hover {
 #align-top-divs {
     display: flex;
     flex-direction: row;
+}
+
+.reaction-button {
+    background-color: #ff9999;
+    padding: 8px 16px;
+    margin-bottom: 0.5vw;
+    border-radius: 5px;
+    color: white;
+}
+.reaction-button:hover {
+    background-color: #ff4d4d;
 }

@@ -19,6 +19,8 @@
                placeholder="Find your Friends..."/>
 
         <div class="nav-align-right">
+            <a th:href="${'/wall'}"
+               class="navbar-button">News Feed</a>
             <a th:href="${'/wall/' + model.loggedInUsername}"
                class="navbar-button"
                th:text="${model.loggedInUsername}"></a>
@@ -32,15 +34,13 @@
 
         <div id="reactions">
             <form method="post" th:action="${'/wall/' + model.wallOwnerUsername + '/wave'}">
-                <input type="submit" value="Wave!" class="button"/>
+                <input type="submit" value="Wave!" class="reaction-button"/>
             </form>
-
             <form method="post" th:action="${'/wall/' + model.wallOwnerUsername + '/like'}">
-                <input type="submit" value="Like!" class="button"/>
+                <input type="submit" value="Like!" class="reaction-button"/>
             </form>
-
             <form method="post" th:action="${'/wall/' + model.wallOwnerUsername + '/frown'}">
-                <input type="submit" value="Frown!" class="button"/>
+                <input type="submit" value="Frown!" class="reaction-button"/>
             </form>
         </div>
     </div>
@@ -49,7 +49,7 @@
         <div id="post-on-wall">
             <h1 th:if="${!model.wallOwnerUsername.equals(model.loggedInUsername)}">Write something on <span
                     th:text="${model.wallOwnerFullName}"></span>'s wall!</h1>
-            <h1 th:unless="${!model.wallOwnerUsername.equals(model.loggedInUsername)}">Create a post:</h1>
+            <h1 th:unless="${!model.wallOwnerUsername.equals(model.loggedInUsername)}">Update your status:</h1>
             <form id="reactions-form" method="post" th:action="${'/wall/' + model.wallOwnerUsername + '/post'}">
                 <input id="create-post" th:if="${!model.wallOwnerUsername.equals(model.loggedInUsername)}" type="text"
                        name="content"/>
@@ -62,7 +62,7 @@
             <div th:each="post: ${model.posts}" class="post">
                 <div class="post-sender">
                     <a th:href="${'/wall/' + post.sender}"
-                       th:text="${'🙂 ' + post.sender}"></a>
+                       th:text="${post.sender}"></a>
                     says:
                 </div>
                 <div th:text="${post.content}"></div>

@@ -20,6 +20,14 @@ public class PostsService extends DatabaseService {
         );
     }
 
+    public List<Post> getAllPosts() {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM posts")
+                        .mapToBean(Post.class)
+                        .list()
+        );
+    }
+
     public Post getSinglePostOnWall(int id) {
         return jdbi.withHandle(handle ->
             handle.createQuery("SELECT * FROM posts WHERE id = :id")

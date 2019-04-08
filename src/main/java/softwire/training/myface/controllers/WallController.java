@@ -37,10 +37,11 @@ public class WallController {
         WallViewModel wallViewModel = new WallViewModel();
         wallViewModel.loggedInUsername = principal.getName();
         wallViewModel.wallOwnerUsername = principal.getName();
-        wallViewModel.posts = postsService.getPostsOnWall(principal.getName());
+        wallViewModel.posts = postsService.getAllPosts();
         wallViewModel.wallOwnerFullName = usersService.getUserWithUserName(principal.getName()).get().getFullName();
+        wallViewModel.allUsernames = usersService.guessAllUsernames();
 
-        return new ModelAndView("wall", "model", wallViewModel);
+        return new ModelAndView("Newsfeed", "model", wallViewModel);
     }
 
     @RequestMapping(value = "/{wallOwnerUsername}", method = RequestMethod.GET)
@@ -72,6 +73,18 @@ public class WallController {
         return new RedirectView("/wall/" + wallOwnerUsername);
     }
 
+    @RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
+    public RedirectView updateStatus(
+            @ModelAttribute("wallOwnerUsername") String wallOwnerUsername,
+            @ModelAttribute("content") String content,
+            Principal loggedInUserPrincipal
+    ) {
+        String senderUsername = loggedInUserPrincipal.getName();
+        postsService.createPost(senderUsername, wallOwnerUsername, content);
+
+        return new RedirectView("/wall/");
+    }
+
     @RequestMapping(value = "/{wallOwnerUsername}/delete-post/{id}", method = RequestMethod.POST)
     public RedirectView deletePostOnWall(
             @PathVariable("wallOwnerUsername") String wallOwnerUsername,
@@ -86,6 +99,24 @@ public class WallController {
         if (currentUser.equals(sender) || currentUser.equals(recipient)) {
             postsService.deletePost(id);
             return new RedirectView("/wall/" + wallOwnerUsername);
+        } else {
+            throw new AccessDeniedException("Only the sender or recipient can delete posts!");
+        }
+    }
+
+    @RequestMapping(value = "/delete-post/{id}", method = RequestMethod.POST)
+    public RedirectView deletePostOnTimeline(
+            @PathVariable("id") Integer id,
+            Principal principal
+    ) {
+        Post currentPost = postsService.getSinglePostOnWall(id);
+        String sender = currentPost.getSender();
+        String recipient = currentPost.getRecipient();
+        String currentUser = principal.getName();
+
+        if (currentUser.equals(sender) || currentUser.equals(recipient)) {
+            postsService.deletePost(id);
+            return new RedirectView("/wall/");
         } else {
             throw new AccessDeniedException("Only the sender or recipient can delete posts!");
         }
